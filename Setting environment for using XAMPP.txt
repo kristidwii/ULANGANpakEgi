@@ -1,0 +1,166 @@
+Setting environment for using XAMPP for Windows.
+Nita Alfiani@LAPTOP-5D9OFEF1 c:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> Create database db_apotek_LinaAKristi;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use db_apotek_LinaAKristi;
+Database changed
+MariaDB [db_apotek_LinaAKristi]> create table tb_Obat ( kode_obat varchar(50) not null, nama_obat varchar(50) not null, jenis varchar(50) not null, satuan varchar(50) not null, stok int(50) not null, harga_beli int(50) not null, harga_jual int(50) not null, PRIMARY KEY(kode_obat));
+Query OK, 0 rows affected (0.035 sec)
+
+MariaDB [db_apotek_LinaAKristi]> INSERT INTO tb_Obat
+    -> VALUES
+    -> ('K001', 'Allerin 120 cc', 'obat terbatas', 'botol', '50', '20000', '22000'),
+    -> ('K002','Becombion 110 ml','obat bebas','botol','10','15000','16000'),
+    -> ('K003','Becombion 60 ml','obat bebas','botol','5','8000','9000'),
+    -> ('K004','Betadine Vag plus','obat bebas','botol','12','12000','13000'),
+    -> ('K005','Komix ','obat bebas','botol','50','4500','5000'),
+    -> ('K006','Diazepam','obat keras','botol','4','55000','60000'),
+    -> ('K007','CTM','obat bebas','botol','3','70000','75000'),
+    -> ('K008','Amoxicilin','obat terbatas','botol','74','975','1100'),
+    -> ('K009','Antimo','obat bebas','botol','2','5100','6000'),
+    ->  ('K010','Paracetamol','obat bebas','botol','100','3000','4000');
+Query OK, 10 rows affected (0.022 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat;
++-----------+-------------------+---------------+--------+------+------------+------------+
+| kode_obat | nama_obat         | jenis         | satuan | stok | harga_beli | harga_jual |
++-----------+-------------------+---------------+--------+------+------------+------------+
+| K001      | Allerin 120 cc    | obat terbatas | botol  |   50 |      20000 |      22000 |
+| K002      | Becombion 110 ml  | obat bebas    | botol  |   10 |      15000 |      16000 |
+| K003      | Becombion 60 ml   | obat bebas    | botol  |    5 |       8000 |       9000 |
+| K004      | Betadine Vag plus | obat bebas    | botol  |   12 |      12000 |      13000 |
+| K005      | Komix             | obat bebas    | botol  |   50 |       4500 |       5000 |
+| K006      | Diazepam          | obat keras    | botol  |    4 |      55000 |      60000 |
+| K007      | CTM               | obat bebas    | botol  |    3 |      70000 |      75000 |
+| K008      | Amoxicilin        | obat terbatas | botol  |   74 |        975 |       1100 |
+| K009      | Antimo            | obat bebas    | botol  |    2 |       5100 |       6000 |
+| K010      | Paracetamol       | obat bebas    | botol  |  100 |       3000 |       4000 |
++-----------+-------------------+---------------+--------+------+------------+------------+
+10 rows in set (0.002 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE jenis='obat keras' OR jenis='obat terbatas';
++-----------+----------------+---------------+--------+------+------------+------------+
+| kode_obat | nama_obat      | jenis         | satuan | stok | harga_beli | harga_jual |
++-----------+----------------+---------------+--------+------+------------+------------+
+| K001      | Allerin 120 cc | obat terbatas | botol  |   50 |      20000 |      22000 |
+| K006      | Diazepam       | obat keras    | botol  |    4 |      55000 |      60000 |
+| K008      | Amoxicilin     | obat terbatas | botol  |   74 |        975 |       1100 |
++-----------+----------------+---------------+--------+------+------------+------------+
+3 rows in set (0.002 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT FROM * FROM tb_Obat WHERE stok<='49';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM * FROM tb_Obat WHERE stok<='49'' at line 1
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_obat WHERE stok<='49';
++-----------+-------------------+------------+--------+------+------------+------------+
+| kode_obat | nama_obat         | jenis      | satuan | stok | harga_beli | harga_jual |
++-----------+-------------------+------------+--------+------+------------+------------+
+| K002      | Becombion 110 ml  | obat bebas | botol  |   10 |      15000 |      16000 |
+| K003      | Becombion 60 ml   | obat bebas | botol  |    5 |       8000 |       9000 |
+| K004      | Betadine Vag plus | obat bebas | botol  |   12 |      12000 |      13000 |
+| K006      | Diazepam          | obat keras | botol  |    4 |      55000 |      60000 |
+| K007      | CTM               | obat bebas | botol  |    3 |      70000 |      75000 |
+| K009      | Antimo            | obat bebas | botol  |    2 |       5100 |       6000 |
++-----------+-------------------+------------+--------+------+------------+------------+
+6 rows in set (0.001 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE satuan!='tablet';
++-----------+-------------------+---------------+--------+------+------------+------------+
+| kode_obat | nama_obat         | jenis         | satuan | stok | harga_beli | harga_jual |
++-----------+-------------------+---------------+--------+------+------------+------------+
+| K001      | Allerin 120 cc    | obat terbatas | botol  |   50 |      20000 |      22000 |
+| K002      | Becombion 110 ml  | obat bebas    | botol  |   10 |      15000 |      16000 |
+| K003      | Becombion 60 ml   | obat bebas    | botol  |    5 |       8000 |       9000 |
+| K004      | Betadine Vag plus | obat bebas    | botol  |   12 |      12000 |      13000 |
+| K005      | Komix             | obat bebas    | botol  |   50 |       4500 |       5000 |
+| K006      | Diazepam          | obat keras    | botol  |    4 |      55000 |      60000 |
+| K007      | CTM               | obat bebas    | botol  |    3 |      70000 |      75000 |
+| K008      | Amoxicilin        | obat terbatas | botol  |   74 |        975 |       1100 |
+| K009      | Antimo            | obat bebas    | botol  |    2 |       5100 |       6000 |
+| K010      | Paracetamol       | obat bebas    | botol  |  100 |       3000 |       4000 |
++-----------+-------------------+---------------+--------+------+------------+------------+
+10 rows in set (0.001 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE jenis='obat bebas' AND harga_jual ORDER BY harga_jual ASC;
++-----------+-------------------+------------+--------+------+------------+------------+
+| kode_obat | nama_obat         | jenis      | satuan | stok | harga_beli | harga_jual |
++-----------+-------------------+------------+--------+------+------------+------------+
+| K010      | Paracetamol       | obat bebas | botol  |  100 |       3000 |       4000 |
+| K005      | Komix             | obat bebas | botol  |   50 |       4500 |       5000 |
+| K009      | Antimo            | obat bebas | botol  |    2 |       5100 |       6000 |
+| K003      | Becombion 60 ml   | obat bebas | botol  |    5 |       8000 |       9000 |
+| K004      | Betadine Vag plus | obat bebas | botol  |   12 |      12000 |      13000 |
+| K002      | Becombion 110 ml  | obat bebas | botol  |   10 |      15000 |      16000 |
+| K007      | CTM               | obat bebas | botol  |    3 |      70000 |      75000 |
++-----------+-------------------+------------+--------+------+------------+------------+
+7 rows in set (0.010 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE satuan='Botol' AND harga_beli BETWEEN 10000 AND 100000;
++-----------+-------------------+---------------+--------+------+------------+------------+
+| kode_obat | nama_obat         | jenis         | satuan | stok | harga_beli | harga_jual |
++-----------+-------------------+---------------+--------+------+------------+------------+
+| K001      | Allerin 120 cc    | obat terbatas | botol  |   50 |      20000 |      22000 |
+| K002      | Becombion 110 ml  | obat bebas    | botol  |   10 |      15000 |      16000 |
+| K004      | Betadine Vag plus | obat bebas    | botol  |   12 |      12000 |      13000 |
+| K006      | Diazepam          | obat keras    | botol  |    4 |      55000 |      60000 |
+| K007      | CTM               | obat bebas    | botol  |    3 |      70000 |      75000 |
++-----------+-------------------+---------------+--------+------+------------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE jenis='obat bebas' AND stok<='5';
++-----------+-----------------+------------+--------+------+------------+------------+
+| kode_obat | nama_obat       | jenis      | satuan | stok | harga_beli | harga_jual |
++-----------+-----------------+------------+--------+------+------------+------------+
+| K003      | Becombion 60 ml | obat bebas | botol  |    5 |       8000 |       9000 |
+| K007      | CTM             | obat bebas | botol  |    3 |      70000 |      75000 |
+| K009      | Antimo          | obat bebas | botol  |    2 |       5100 |       6000 |
++-----------+-----------------+------------+--------+------+------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE nama_obat LIKE '%b%';
++-----------+-------------------+------------+--------+------+------------+------------+
+| kode_obat | nama_obat         | jenis      | satuan | stok | harga_beli | harga_jual |
++-----------+-------------------+------------+--------+------+------------+------------+
+| K002      | Becombion 110 ml  | obat bebas | botol  |   10 |      15000 |      16000 |
+| K003      | Becombion 60 ml   | obat bebas | botol  |    5 |       8000 |       9000 |
+| K004      | Betadine Vag plus | obat bebas | botol  |   12 |      12000 |      13000 |
++-----------+-------------------+------------+--------+------+------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE nama_obat LIKE '%om%';
++-----------+------------------+------------+--------+------+------------+------------+
+| kode_obat | nama_obat        | jenis      | satuan | stok | harga_beli | harga_jual |
++-----------+------------------+------------+--------+------+------------+------------+
+| K002      | Becombion 110 ml | obat bebas | botol  |   10 |      15000 |      16000 |
+| K003      | Becombion 60 ml  | obat bebas | botol  |    5 |       8000 |       9000 |
+| K005      | Komix            | obat bebas | botol  |   50 |       4500 |       5000 |
++-----------+------------------+------------+--------+------+------------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE kode_obat='K001' OR kode
+    -> kode_obat='K003' OR kode_obat='K005' OR kode
+    -> _obat='K007';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'kode_obat='K003' OR kode_obat='K005' OR kode
+_obat='K007'' at line 2
+MariaDB [db_apotek_LinaAKristi]> SELECT * FROM tb_Obat WHERE kode_obat='K001' OR kode_obat='K003' OR kode_obat='K005' OR kode_obat='K007';
++-----------+-----------------+---------------+--------+------+------------+------------+
+| kode_obat | nama_obat       | jenis         | satuan | stok | harga_beli | harga_jual |
++-----------+-----------------+---------------+--------+------+------------+------------+
+| K001      | Allerin 120 cc  | obat terbatas | botol  |   50 |      20000 |      22000 |
+| K003      | Becombion 60 ml | obat bebas    | botol  |    5 |       8000 |       9000 |
+| K005      | Komix           | obat bebas    | botol  |   50 |       4500 |       5000 |
+| K007      | CTM             | obat bebas    | botol  |    3 |      70000 |      75000 |
++-----------+-----------------+---------------+--------+------+------------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [db_apotek_LinaAKristi]>
